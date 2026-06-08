@@ -1,0 +1,238 @@
+
+------------------------------------------------------------------
+1. Enable IPv6 Globally
+------------------------------------------------------------------
+Router 1# configure terminal
+Router 1(config)# ipv6 unicast-routing
+Router 2# configure terminal
+Router 2(config)# ipv6 unicast-routing
+------------------------------------------------------------------
+2. Enable IPv6 on Interface
+------------------------------------------------------------------
+Router 1 (config)# interface FastEthernet0/0
+Router 1 (config-if)# ipv6 enable
+Router 1 (config-if)# no shutdown 
+Router 1 (config)# interface FastEthernet0/1
+Router 1 (config-if)# ipv6 enable
+Router 1 (config-if)# no shutdown
+------------------------------------------------------------------
+Router 2 (config)# interface FastEthernet0/0
+Router 2 (config-if)# ipv6 enable
+Router 2 (config-if)# no shutdown 
+Router 2 (config)# interface FastEthernet0/1
+Router 2 (config-if)# ipv6 enable
+Router 2 (config-if)# no shutdown 
+------------------------------------------------------------------
+3. Configure EUI-64 Format Global Unicast
+------------------------------------------------------------------
+Router 1 (config)# interface FastEthernet0/0
+Router 1(config-if)# ipv6 address 2001:AAAA:BBBB:CCCC::/64 eui-64
+Router 1(config-if)# end
+------------------------------------------------------------------
+Router 1# show ipv6 interface brief
+
+FastEthernet0/0            [up/up]
+
+FE80::2E0:B0FF:FE0E:7701
+
+2001:AAAA:BBBB:CCCC:2E0:B0FF:FE0E:7701
+
+FastEthernet0/1            [up/up]
+
+FE80::2E0:B0FF:FE0E:7702
+
+Vlan1                      [administratively down/down]
+
+unassigned
+------------------------------------------------------------------
+4. Configure Manual Global Unicast Address
+------------------------------------------------------------------
+Router 2 (config)# interface FastEthernet0/0
+Router 2 (config-if)# ipv6 address 2001:AAAA:BBBB:CCCC:1234:1234:1234:1234/64
+Router 2(config-if)# end
+------------------------------------------------------------------
+Router 2# show ipv6 interface brief
+FastEthernet0/0            [up/up]
+FE80::206:2AFF:FE15:BD01
+    2001:AAAA:BBBB:CCCC:1234:1234:1234:1234
+FastEthernet0/1            [administratively up/up]
+FE80::206:2AFF:FE15:BD02
+Vlan1                      [administratively down/down]
+
+unassigned
+------------------------------------------------------------------
+5. IPv6 Ping
+------------------------------------------------------------------
+Router 1# ping ipv6 2001:AAAA:BBBB:CCCC:1234:1234:1234:1234
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to 2001:AAAA:BBBB:CCCC:1234:1234:1234:1234, timeout is 2 seconds:
+
+!!!!!
+
+Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/1 ms
+------------------------------------------------------------------
+Router 1# show ipv6 interface FastEthernet0/0
+
+FastEthernet0/0 is up, line protocol is up
+
+IPv6 is enabled, link-local address is FE80::2E0:B0FF:FE0E:7701
+
+No Virtual link-local address(es):
+
+Global unicast address(es):
+
+2001:AAAA:BBBB:CCCC:2E0:B0FF:FE0E:7701, subnet is 2001:AAAA:BBBB:CCCC::/64 [EUI]
+
+Joined group address(es):
+
+FF02::1
+
+FF02::2
+
+FF02::1:FF0E:7701
+
+MTU is 1500 bytes
+
+ICMP error messages limited to one every 100 milliseconds
+
+ICMP redirects are enabled
+
+ICMP unreachables are sent
+
+ND DAD is enabled, number of DAD attempts: 1
+
+ND reachable time is 30000 milliseconds
+
+ND advertised reachable time is 0 (unspecified)
+
+ND advertised retransmit interval is 0 (unspecified)
+
+ND router advertisements are sent every 200 seconds
+
+ND router advertisements live for 1800 seconds
+
+ND advertised default router preference is Medium
+
+Hosts use stateless autoconfig for addresses.
+------------------------------------------------------------------
+Router 2# show ipv6 interface FastEthernet0/0
+
+FastEthernet0/0 is up, line protocol is up
+
+IPv6 is enabled, link-local address is FE80::206:2AFF:FE15:BD01
+
+No Virtual link-local address(es):
+
+Global unicast address(es):
+
+    2001:AAAA:BBBB:CCCC:1234:1234:1234:1234, subnet is 2001:AAAA:BBBB:CCCC::/64
+
+Joined group address(es):
+
+FF02::1
+
+FF02::2
+
+FF02::1:FF15:BD01
+
+FF02::1:FF34:1234
+
+MTU is 1500 bytes
+
+ICMP error messages limited to one every 100 milliseconds
+
+ICMP redirects are enabled
+
+ICMP unreachables are sent
+
+ND DAD is enabled, number of DAD attempts: 1
+
+ND reachable time is 30000 milliseconds
+
+ND advertised reachable time is 0 (unspecified)
+
+ND advertised retransmit interval is 0 (unspecified)
+
+ND router advertisements are sent every 200 seconds
+
+ND router advertisements live for 1800 seconds
+
+ND advertised default router preference is Medium
+
+Hosts use stateless autoconfig for addresses.
+------------------------------------------------------------------
+Router 2 # ping ipv6 2001:AAAA:BBBB:CCCC:1111:2222:3333:4444 repeat 10 size 200 source 2001:AAAA:BBBB:CCCC:1234:1234:1234:1234
+------------------------------------------------------------------
+7. Manual Link Local Address Configuration
+------------------------------------------------------------------
+
+Router 1 (config)# interface FastEthernet0/1
+Router 1 (config-if)# ipv6 address FE80::AAAA:BBBB:CCCC:DDDD link-local
+Router 1 (config-if)# end
+------------------------------------------------------------------
+Router 1# show ipv6 interface brief
+
+FastEthernet0/0            [up/up]
+
+FE80::2E0:B0FF:FE0E:7701
+
+2001:AAAA:BBBB:CCCC:2E0:B0FF:FE0E:7701
+
+FastEthernet0/1            [administratively down/down]
+
+    FE80::AAAA:BBBB:CCCC:DDDD
+
+Vlan1                      [administratively down/down]
+
+unassigned
+------------------------------------------------------------------
+7. Auto IPv6 Address Configuration
+------------------------------------------------------------------
+Router 2 (config)# interface FastEthernet0/1
+
+Router 2 (config-if)# ipv6 address autoconfig
+
+Router 2 (config-if)# end
+------------------------------------------------------------------
+Router 2# show ipv6 interface brief
+
+FastEthernet0/0            [up/up]
+
+FE80::206:2AFF:FE15:BD01
+
+2001:AAAA:BBBB:CCCC:1234:1234:1234:1234
+
+FastEthernet0/1            [up/down]
+
+    FE80::206:2AFF:FE15:BD02
+
+Vlan1                      [administratively down/down]
+
+unassigned
+------------------------------------------------------------------
+
+Router 2# ping ipv6 FE80::AAAA:BBBB:CCCC:DDDD
+
+Output Interface: FastEthernet0/1
+
+Type escape sequence to abort.
+
+Sending 5, 100-byte ICMP Echos to FE80::AAAA:BBBB:CCCC:DDDD, timeout is 2 seconds:
+
+!!!!!
+
+Success rate is 100 percent (5/5), round-trip min/avg/max = 0/0/1 ms
+------------------------------------------------------------------
+8. Enable DHCPv6 Client
+------------------------------------------------------------------
+
+Router 1 (config)# interface FastEthernet0/1
+
+Router 1 (config-if)# ipv6 address dhcp
+
+Router 1 (config)# end
+------------------------------------------------------------------
+Router 1 # show ipv6 dhcp interface
+------------------------------------------------------------------
