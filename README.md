@@ -6,6 +6,16 @@ IPAM-Adressierungsplan IPv6 und Einrichtungsdokumentation
 Projekt: 4-Standorte-Netz (HH, HL, B, M)
 Basis: Cisco ISR4331 (Router), Cisco 3650 (L3-Switch)
 
+0. Anforderungen und Umsetzungsrahmen
+1. Zielbild und Design-Entscheidungen
+2. Topologie, Portplan und VLAN-Zuordnung
+3. Addressierungslogik
+4. VLAN-Netze
+5. Transportnetze (ULA)
+6. Uplink- und Routing-Konzept
+7. Einrichtungs-Vorgehen (Schritt-für-Schritt)
+8. Dokumentationsstandard und Abnahmekriterien
+
 ==================================================
 
 0) Anforderungen und Umsetzungsrahmen
