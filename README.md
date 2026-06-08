@@ -7,6 +7,7 @@ Projekt: 4-Standorte-Netz (HH, HL, B, M)
 Basis: Cisco ISR4331 (Router), Cisco 3650 (L3-Switch)
 
 ==================================================
+
 0) Anforderungen und Umsetzungsrahmen
 
 
@@ -42,6 +43,7 @@ Basis: Cisco ISR4331 (Router), Cisco 3650 (L3-Switch)
 - DHCPv6-Zuweisungen und Pools werden in der IPAM dokumentiert.
 
 ==================================================
+
 1) Zielbild und Design-Entscheidungen
 
 
@@ -64,6 +66,7 @@ Warum sinnvoll:
 - Phasenmodell erfüllt sowohl Basisanforderungen (statisch) als auch Must-have (OSPFv3).
 
 ==================================================
+
 2) Topologie, Portplan und VLAN-Zuordung
 
 2.1 Router-zu-Router (gegeben)
@@ -97,6 +100,7 @@ SW-M-01:
 - VLAN 60: Gi1/0/2 (Server)
 
 ==================================================
+
 3) Addressierungslogik
 
 
@@ -126,6 +130,7 @@ Host-/Server-ID-Empfehlung:
 - Clients: ab ::100
 
 ==================================================
+
 4) VLAN-Netze (GUA)
 
 
@@ -150,6 +155,7 @@ M:
   - Gateway (SVI): 2001:db8:0400:0060::1
 
 ==================================================
+
 5) Transportnetze (ULA)
 
 
@@ -198,6 +204,7 @@ M:
   - SW-M-01 Gi1/0/1 L3: fd00:db8:0400:ff00::1/127
 
 ==================================================
+
 6) Uplink- und Routing-Konzept
 
 
@@ -230,6 +237,7 @@ Warum sinnvoll:
 - Die initiale statische Phase ist gut kontrollierbar und erleichtert die Erstinbetriebnahme.
 
 ==================================================
+
 7) Einrichtungsvorgehen (Schritt für Schritt)
 
 
@@ -297,6 +305,7 @@ Warum sinnvoll:
 - ping ipv6 / traceroute ipv6 standortintern und standortübergreifend
 
 ==================================================
+
 8) Dokumentationsstandard und Abnahmekriterien
 
 
