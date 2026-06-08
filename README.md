@@ -1,4 +1,4 @@
-# Lernfeld9
+# Lernfeld 9
 Lernfeld 9 - Dokumentation und Projektdateien
 
 IPAM-Adressierungsplan IPv6 und Einrichtungsdokumentation
@@ -7,7 +7,7 @@ Projekt: 4-Standorte-Netz (HH, HL, B, M)
 Basis: Cisco ISR4331 (Router), Cisco 3650 (L3-Switch)
 
 ==================================================
-0) ANFORDERUNGEN UND UMSETZUNGSRAHMEN
+0) Anforderungen und Umsetzungsrahmen
 
 
 0.1 Allgemeine Netzwerkanforderungen
@@ -42,8 +42,8 @@ Basis: Cisco ISR4331 (Router), Cisco 3650 (L3-Switch)
 - DHCPv6-Zuweisungen und Pools werden in der IPAM dokumentiert.
 
 ==================================================
-1) ZIELBILD UND DESIGN-ENTSCHEIDUNGEN
-==================================================
+1) Zielbild und Design-Entscheidungen
+
 
 Ziel:
 - Das Netzwerk soll reproduzierbar, störungsarm und nachvollziehbar aufgebaut werden.
@@ -64,8 +64,7 @@ Warum sinnvoll:
 - Phasenmodell erfüllt sowohl Basisanforderungen (statisch) als auch Must-have (OSPFv3).
 
 ==================================================
-2) TOPOLOGIE, PORTPLAN UND VLAN-ZUORDNUNG
-==================================================
+2) Topologie, Portplan und VLAN-Zuordung
 
 2.1 Router-zu-Router (gegeben)
 - Router-HH Se0/1/0 <-> Router-B  Se0/1/0
@@ -98,8 +97,8 @@ SW-M-01:
 - VLAN 60: Gi1/0/2 (Server)
 
 ==================================================
-3) ADRESSIERUNGSLOGIK
-==================================================
+3) Addressierungslogik
+
 
 GUA (Standort-/VLAN-Netze):
 - PI-Space: 2001:db8::/32
@@ -127,8 +126,8 @@ Host-/Server-ID-Empfehlung:
 - Clients: ab ::100
 
 ==================================================
-4) VLAN-NETZE (GUA)
-==================================================
+4) VLAN-Netze (GUA)
+
 
 HH:
 - VLAN 10: 2001:db8:0100:0010::/64
@@ -151,8 +150,8 @@ M:
   - Gateway (SVI): 2001:db8:0400:0060::1
 
 ==================================================
-5) TRANSPORTNETZE (ULA)
-==================================================
+5) Transportnetze (ULA)
+
 
 5.1 Router-zu-Router Seriellinks (/127)
 
@@ -199,8 +198,8 @@ M:
   - SW-M-01 Gi1/0/1 L3: fd00:db8:0400:ff00::1/127
 
 ==================================================
-6) UPLINK- UND ROUTING-KONZEPT
-==================================================
+6) Uplink- und Routing-Konzept
+
 
 L3-Uplink/Trunk-Entscheidung:
 - Zwischen Router und L3-Switch jeweils Routed Port (kein 802.1Q-Trunk).
@@ -231,8 +230,8 @@ Warum sinnvoll:
 - Die initiale statische Phase ist gut kontrollierbar und erleichtert die Erstinbetriebnahme.
 
 ==================================================
-7) EINRICHTUNGS-VORGEHEN (SCHRITT FUR SCHRITT)
-==================================================
+7) Einrichtungsvorgehen (Schritt für Schritt)
+
 
 1) Basis-Setup aller Geräte
 - Hostname, Management-Zugang, lokaler Admin, SSH, Banner, Zeitsynchronisation.
@@ -298,8 +297,8 @@ Warum sinnvoll:
 - ping ipv6 / traceroute ipv6 standortintern und standortübergreifend
 
 ==================================================
-8) DOKUMENTATIONSSTANDARD UND ABNAHMEKRITERIEN
-==================================================
+8) Dokumentationsstandard und Abnahmekriterien
+
 
 Dokumentationsstandard während der Einrichtung:
 - Jede änderung sofort in der IPAM markieren (Datum, Bearbeiter, Grund).
@@ -318,7 +317,3 @@ Minimale Abnahmekriterien (prüfungsreif):
 - SSH-Zugriff ist nur aus Hamburg-Clientnetzen möglich.
 - Webserverzugriffe entsprechen der ACL-Vorgabe (HH: HTTP/HTTPS, HL: nur HTTPS).
 - DHCPv6 Must-have ist funktional; Should-have (Stateful in HH) ist dokumentiert, falls umgesetzt.
-
-==================================================
-ENDE
-==================================================
