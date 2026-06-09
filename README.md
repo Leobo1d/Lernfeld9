@@ -63,8 +63,8 @@ Ziel:
 - Jede Entscheidung soll technisch begründet sein (Wartbarkeit, Skalierbarkeit, Fehlersicherheit).
 
 Design-Entscheidungen:
-- VLAN-Standortnetze als GUA aus 2001:db8::/32.
-- Transportnetze (Transit) als ULA aus fd00:db8::/32.
+- VLAN-Standortnetze als GUA aus 2001:db8::/64.
+- Transportnetze (Transit) als ULA aus fd00:db8::/64.
 - Router-zu-Switch als Routed Port (kein Trunk).
 - Routing in zwei Phasen: zürst statische Routen, danach Migration auf OSPFv3.
 - Initial statische Adressvergabe, danach DHCPv6-Erweiterung gemäss Vorgaben.
@@ -115,21 +115,24 @@ SW-M-01:
 
 
 GUA (Standort-/VLAN-Netze):
-- PI-Space: 2001:db8::/32
+- PI-Space: 2001:db8::/64
 - Schema: 2001:db8:SSSS:VVVV::/64
   - SSSS = Standortkennung
   - VVVV = VLAN-ID
   - Host-ID = Interface Identifier im Host-Anteil
 
 Standortkennungen (SSSS):
-- HH = 0100
-- HL = 0200
-- B  = 0300
-- M  = 0400
+- HH = 1
+- HL = 2
+- B  = 3
+- M  = 4
 
 ULA (Transport-/Transit-Netze):
-- ULA-Block: fd00:db8::/32
-- Verwendet für Router-zu-Router und Router-zu-L3-Switch-Transit
+- ULA-Block: fd00:1000::/64
+- Verwendet für Router-zu-Router
+
+- ULA-Block: fd00:db8:ff::/64
+- Verwendet für  Router-zu-L3-Switch-Transit
 
 Gateway-Konvention:
 - SVI-Gateway in VLAN-Netzen: ::1
@@ -145,73 +148,73 @@ Host-/Server-ID-Empfehlung:
 
 
 HH:
-- VLAN 10: 2001:db8:0100:0010::/64
-  - Gateway (SVI): 2001:db8:0100:0010::1
-- VLAN 20: 2001:db8:0100:0020::/64
-  - Gateway (SVI): 2001:db8:0100:0020::1
+- VLAN 10: 2001:db8:1:10::/64
+  - Gateway (SVI): 2001:db8:1:10::1
+- VLAN 20: 2001:db8:1:20::/64
+  - Gateway (SVI): 2001:db8:1:20::1
 
 HL:
-- VLAN 30: 2001:db8:0200:0030::/64
-  - Gateway (SVI): 2001:db8:0200:0030::1
-- VLAN 40: 2001:db8:0200:0040::/64
-  - Gateway (SVI): 2001:db8:0200:0040::1
+- VLAN 30: 2001:db8:2:30::/64
+  - Gateway (SVI): 2001:db8:2:30::1
+- VLAN 40: 2001:db8:2:40::/64
+  - Gateway (SVI): 2001:db8:2:40::1
 
 B:
-- VLAN 50: 2001:db8:0300:0050::/64
-  - Gateway (SVI): 2001:db8:0300:0050::1
+- VLAN 50: 2001:db8:3:50::/64
+  - Gateway (SVI): 2001:db8:3:50::1
 
 M:
-- VLAN 60: 2001:db8:0400:0060::/64
-  - Gateway (SVI): 2001:db8:0400:0060::1
+- VLAN 60: 2001:db8:4:60::/64
+  - Gateway (SVI): 2001:db8:4:60::1
 
 ==================================================
 
 5) Transportnetze (ULA)
 
 
-5.1 Router-zu-Router Seriellinks (/127)
+5.1 Router-zu-Router Seriellinks (/64)
 
-- Link HH <-> B: fd00:db8:0103:0000::/127
-  - Router-HH Se0/1/0: fd00:db8:0103::0/127
-  - Router-B  Se0/1/0: fd00:db8:0103::1/127
+- Link HH <-> B: fd00:1000:1::/64
+  - Router-HH Se0/1/0: fd00:1000:1:1/64
+  - Router-B  Se0/1/0: fd00:1000:1:2/64
 
-- Link HH <-> HL: fd00:db8:0102:0000::/127
-  - Router-HH Se0/1/1: fd00:db8:0102::0/127
-  - Router-HL Se0/1/1: fd00:db8:0102::1/127
+- Link HH <-> HL: fd00:1000:2::/64
+  - Router-HH Se0/1/1: fd00:1000:2::1/64
+  - Router-HL Se0/1/1: fd00:1000:2::2/64
 
-- Link HH <-> M: fd00:db8:0104:0000::/127
-  - Router-HH Se0/2/0: fd00:db8:0104::0/127
-  - Router-M  Se0/2/0: fd00:db8:0104::1/127
+- Link HH <-> M: fd00:1000:3::/64
+  - Router-HH Se0/2/0: fd00:1000:3::1/64
+  - Router-M  Se0/2/0: fd00:1000:3::2/127
 
-- Link M <-> HL: fd00:db8:0204:0000::/127
-  - Router-M  Se0/1/0: fd00:db8:0204::1/127
-  - Router-HL Se0/1/0: fd00:db8:0204::0/127
+- Link M <-> HL: fd00:1000:4::/64
+  - Router-M  Se0/1/0: fd00:1000:4::1/64
+  - Router-HL Se0/1/0: fd00:1000:4::2/64
 
-- Link M <-> B: fd00:db8:0304:0000::/127
-  - Router-M Se0/1/1: fd00:db8:0304::1/127
-  - Router-B Se0/1/1: fd00:db8:0304::0/127
+- Link M <-> B: fd00:1000:5::/64
+  - Router-M Se0/1/1: fd00:1000:5::1/64
+  - Router-B Se0/1/1: fd00:1000:5::2/64
 
-- Link HL <-> B: fd00:db8:0203:0000::/127
-  - Router-HL Se0/2/0: fd00:db8:0203::0/127
-  - Router-B  Se0/2/0: fd00:db8:0203::1/127
+- Link HL <-> B: fd00:1000:6::/64
+  - Router-HL Se0/2/0: fd00:1000:6::1/64
+  - Router-B  Se0/2/0: fd00:1000:6::2/64
 
-5.2 Router-zu-L3-Switch Transit (/127)
+5.2 Router-zu-L3-Switch Transit (/64)
 
-- HH Transit: fd00:db8:0100:ff00::/127
-  - Router-HH Gi0/0/0:   fd00:db8:0100:ff00::0/127
-  - SW-HH-01 Gi1/0/1 L3: fd00:db8:0100:ff00::1/127
+- HH Transit: fd00:db8:ff:1::/64
+  - Router-HH Gi0/0/0:   fd00:db8:ff:1::1/64
+  - SW-HH-01 Gi1/0/1 L3: fd00:db8:ff:1::2/64
 
-- HL Transit: fd00:db8:0200:ff00::/127
-  - Router-HL Gi0/0/0:   fd00:db8:0200:ff00::0/127
-  - SW-HL-01 Gi1/0/1 L3: fd00:db8:0200:ff00::1/127
+- HL Transit: fd00:db8:ff:2::/64
+  - Router-HL Gi0/0/0:   fd00:db8:ff:2::1/64
+  - SW-HL-01 Gi1/0/1 L3: fd00:db8:ff:2::2/64
+  - 
+- B Transit: fd00:db8:ff:3::/64
+  - Router-B Gi0/0/0:   fd00:db8:ff:3::1/64
+  - SW-B-01 Gi1/0/1 L3: fd00:db8:ff:3::2/64
 
-- B Transit: fd00:db8:0300:ff00::/127
-  - Router-B Gi0/0/0:   fd00:db8:0300:ff00::0/127
-  - SW-B-01 Gi1/0/1 L3: fd00:db8:0300:ff00::1/127
-
-- M Transit: fd00:db8:0400:ff00::/127
-  - Router-M Gi0/0/0:   fd00:db8:0400:ff00::0/127
-  - SW-M-01 Gi1/0/1 L3: fd00:db8:0400:ff00::1/127
+- M Transit: fd00:db8:ff:4::/64
+  - Router-M Gi0/0/0:   fd00:db8:ff:4::1/64
+  - SW-M-01 Gi1/0/1 L3: fd00:db8:ff:4::2/64
 
 ==================================================
 
@@ -236,10 +239,10 @@ Routing-Entscheidung:
   - Router-M  = 4.4.4.4
 
 Mögliche Standort-Zusammenfassung:
-- HH: 2001:db8:0100::/48
-- HL: 2001:db8:0200::/48
-- B:  2001:db8:0300::/48
-- M:  2001:db8:0400::/48
+- HH: 2001:db8:1::/64
+- HL: 2001:db8:2::/64
+- B:  2001:db8:3::/64
+- M:  2001:db8:4::/64
 
 Warum sinnvoll:
 - OSPFv3 bietet bei mehreren Pfaden schnellere Konvergenz als statische Routen.
