@@ -1,0 +1,36 @@
+VLAN erstellen
+
+Router:
+interface GigabitEthernet0/0/1
+encapsulation dot1Q <VLAN Nummer>
+ipv6 address 2001:db8:<VLAN Nummer>::1/64
+no shutdown
+
+interface GigabitEthernet0/0/1
+encapsulation dot1Q <VLAN Nummer>
+ipv6 address 2001:db8:<VLAN Nummer>::1/64
+no shutdown
+
+Switch:
+enable
+conf t
+vlan 10
+name vlanHH10
+exit
+interface Gi0/2
+switchport mode access
+switchport access vlan 10
+exit
+
+interface Gi0/2
+switchport mode access
+switchport access vlan 20
+exit
+
+
+interface Gi0/1/0
+switchport mode trunk
+switchport trunk allowed vlan 10,20
+
+end
+write memory
