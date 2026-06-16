@@ -2,5 +2,5 @@ enable
 conf t
 interface GigabitEthernet0/0/1.60
 encapsulation dot1Q 60
-ipv6 address 2001:db8:60::1/64
+ipv6 address 2001:db8:4:60::1/64
 no shutdown
