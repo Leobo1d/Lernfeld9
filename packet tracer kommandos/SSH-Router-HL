@@ -1,6 +1,6 @@
 enable
 configure terminal
-hostname Router
+hostname RT-HL-01
 ip domain-name firma.local
 
 enable secret enable123
