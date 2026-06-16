@@ -4,7 +4,7 @@ conf t
 vlan 30
 name vlanHL30
 exit
-interface Gi0/2
+interface GigabitEthernet1/0/2
 switchport mode access
 switchport access vlan 30
 exit
@@ -13,7 +13,7 @@ conf t
 vlan 40
 Name vlanHL40
 exit
-interface Gi0/3
+interface GigabitEthernet1/0/3
 switchport mode access
 switchport access vlan 40
 exit
