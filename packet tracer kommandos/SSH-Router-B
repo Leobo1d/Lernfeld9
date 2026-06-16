@@ -1,3 +1,5 @@
+enable
+conf t
 hostname RT-B-01
 ip domain-name lernfeld.local
 
