@@ -1,0 +1,46 @@
+enable
+configure terminal
+hostname Router
+ip domain-name firma.local
+
+enable secret enable123
+username admin privilege 15 secret admin123
+
+banner motd #
+UNAUTHORIZED ACCESS PROHIBITED
+Nur autorisierte Nutzer
+IPv6 Network Secured
+#
+
+line console 0
+ password console123
+ login
+ exec-timeout 5 0
+exit
+
+crypto key generate rsa
+
+//hier 1024 eingeben
+
+ip ssh version 2
+ip ssh authentication-retries 3
+ip ssh time-out 60
+
+line vty 0 4
+ transport input ssh
+ login local
+ exec-timeout 10 0
+exit
+
+! Optional: SSH nur von VLAN 10 (2001:DB8:1:10::/64)
+ipv6 access-list SSH-HAMBURG
+ permit tcp 2001:DB8:1:10::/64 any eq 22
+ deny tcp any any eq 22
+ permit ipv6 any any
+
+line vty 0 4
+ ipv6 access-class SSH-HAMBURG in
+exit
+
+end
+write memory
