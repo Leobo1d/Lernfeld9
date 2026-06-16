@@ -5,3 +5,6 @@ admin123
 
 router HH:
 consolerhh01
+
+switch HH:
+consoleshh01
