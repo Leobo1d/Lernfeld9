@@ -1,13 +1,37 @@
-enable
-configure terminal
 hostname RT-B-01
 ip domain-name lernfeld.local
 
 enable secret enable123
 username admin privilege 15 secret admin123
 
-banner motd #
-UNAUTHORIZED ACCESS PROHIBITED
-Nur autorisierte Nutzer
-IPv6 Network Secured
-#
+banner motd #UNAUTHORIZED ACCESS PROHIBITED#
+
+line console 0
+ password console123
+ login
+exit
+
+interface vlan 1
+ ipv6 address 2001:DB8:3:50::1/64
+ no shutdown
+exit
+
+ipv6 default-gateway 2001:DB8:3:50::254
+
+crypto key generate rsa
+ip ssh version 2
+
+ipv6 access-list SSH-HAMBURG
+ remark Zugriff von Hamburg
+ permit tcp 2001:DB8:1:10::/64 any eq 22
+ deny tcp any any eq 22
+ permit ipv6 any any
+
+line vty 0 4
+ transport input ssh
+ login local
+ ipv6 access-class SSH-HAMBURG in
+exit
+
+end
+write memory
