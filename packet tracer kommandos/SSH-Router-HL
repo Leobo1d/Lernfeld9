@@ -1,0 +1,13 @@
+enable
+configure terminal
+hostname Router
+ip domain-name firma.local
+
+enable secret enable123
+username admin privilege 15 secret admin123
+
+banner motd #
+UNAUTHORIZED ACCESS PROHIBITED
+Nur autorisierte Nutzer
+IPv6 Network Secured
+#
