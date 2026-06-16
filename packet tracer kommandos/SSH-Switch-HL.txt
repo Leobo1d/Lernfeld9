@@ -1,37 +1,35 @@
 enable
 configure terminal
-hostname SW-HH-01
+hostname SW-HL-01
 ip domain-name lernfeld.local
 
 enable secret enable123
 username admin privilege 15 secret admin123
 
-banner motd #
-UNAUTHORIZED ACCESS PROHIBITED
-#
-
 line console 0
  password console123
  login
- exec-timeout 5 0
 exit
 
-interface vlan 10
- ipv6 address 2001:DB8:1:10::2/64
+interface vlan 1
+ ipv6 address 2001:DB8:2:30::2/64
  no shutdown
 exit
 
-ipv6 default-gateway 2001:DB8:1:10::1
+ipv6 default-gateway 2001:DB8:2:30::1
 
 crypto key generate rsa
-! (1024)
-
 ip ssh version 2
+
+ipv6 access-list SSH-HAMBURG
+ permit tcp 2001:DB8:1:10::/64 any eq 22
+ deny tcp any any eq 22
+ permit ipv6 any any
 
 line vty 0 4
  transport input ssh
  login local
- exec-timeout 10 0
+ ipv6 access-class SSH-HAMBURG in
 exit
 
 end
