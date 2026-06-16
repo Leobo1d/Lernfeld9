@@ -1,0 +1,13 @@
+enable
+configure terminal
+hostname RT-M-01
+ip domain-name lernfeld.local
+
+enable secret enable123
+username admin privilege 15 secret admin123
+
+banner motd #
+UNAUTHORIZED ACCESS PROHIBITED
+Nur autorisierte Nutzer
+IPv6 Network Secured
+#
