@@ -1,0 +1,56 @@
+	Hamburg
+
+interface Serial0/1/0
+ipv6 address fd00:1000:1::1/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:2::1/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:3::1/64
+end
+
+	Lübeck
+
+interface Serial0/1/0
+ipv6 address fd00:1000:4::1/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:2::2/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:5::1/64
+end
+
+	Berlin
+
+interface Serial0/1/0
+ipv6 address fd00:1000:1::2/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:6::1/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:5::2/64
+end
+
+
+	München
+
+interface Serial0/1/0
+ipv6 address fd00:1000:4::2/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:5::2/64
+end
+conf t
+interface Serial0/1/1
+ipv6 address fd00:1000:3::2/64
+end

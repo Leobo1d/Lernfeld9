@@ -1,0 +1,11 @@
+enable
+conf t
+interface Serial0/1/0
+ipv6 enable
+no shutdown
+interface Serial0/2/0
+ipv6 enable
+no shutdown
+interface Serial0/1/1
+ipv6 enable
+no shutdown

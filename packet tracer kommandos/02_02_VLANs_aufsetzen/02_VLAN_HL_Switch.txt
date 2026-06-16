@@ -1,0 +1,27 @@
+enable
+conf t
+
+vlan 30
+name vlanHL30
+exit
+interface Gi0/2
+switchport mode access
+switchport access vlan 30
+exit
+
+conf t
+vlan 40
+Name vlanHL40
+exit
+interface Gi0/3
+switchport mode access
+switchport access vlan 40
+exit
+
+
+interface Gi0/1/0
+switchport mode trunk
+switchport trunk allowed vlan 30,40
+
+end
+write memory

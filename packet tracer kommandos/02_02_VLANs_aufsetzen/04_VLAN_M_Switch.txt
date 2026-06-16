@@ -1,0 +1,17 @@
+enable
+conf t
+
+vlan 60
+name vlanM60
+exit
+interface Gi0/2
+switchport mode access
+switchport access vlan 60
+exit
+
+interface Gi0/1/0
+switchport mode trunk
+switchport trunk allowed vlan 60
+
+end
+write memory

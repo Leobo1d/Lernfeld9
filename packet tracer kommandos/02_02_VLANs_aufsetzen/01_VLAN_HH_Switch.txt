@@ -1,0 +1,26 @@
+enable
+conf t
+vlan 10
+name vlanHH10
+exit
+interface Gi0/2
+switchport mode access
+switchport access vlan 10
+exit
+
+conf t
+vlan 20
+name vlanHH20
+exit
+interface Gi0/3
+switchport mode access
+switchport access vlan 20
+exit
+
+
+interface Gi0/1/0
+switchport mode trunk
+switchport trunk allowed vlan 10,20
+
+end
+write memory

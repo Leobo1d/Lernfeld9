@@ -1,0 +1,17 @@
+enable
+conf t
+
+vlan 50
+name vlanB50
+exit
+interface Gi0/2
+switchport mode access
+switchport access vlan 50
+exit
+
+interface Gi0/1/0
+switchport mode trunk
+switchport trunk allowed vlan 50
+
+end
+write memory

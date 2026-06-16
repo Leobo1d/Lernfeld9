@@ -1,0 +1,6 @@
+enable
+conf t
+interface GigabitEthernet0/0/1.50
+encapsulation dot1Q 50
+ipv6 address 2001:db8:50::1/64
+no shutdown
