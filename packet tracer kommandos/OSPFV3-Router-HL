@@ -3,9 +3,9 @@ Router HL:
 conf t
 ipv6 router ospf 42
 router-id 2.2.2.2
-------------------------------
-#OSPF pro Interface aktivieren
-------------------------------
+---------------------
+#OSPFV3 pro Interface
+---------------------
 enable
 conf t
 interface se0/1/0
