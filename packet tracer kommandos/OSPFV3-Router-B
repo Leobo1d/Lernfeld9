@@ -1,0 +1,6 @@
+#RouterID zuweisen
+------------------
+Router B:
+conf t
+ipv6 router ospf 42
+router-id 3.3.3.3
