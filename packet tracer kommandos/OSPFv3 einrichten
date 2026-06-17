@@ -1,0 +1,4 @@
+Router HH:
+conf t
+ipv6 router ospf 42
+router-id 1.1.1.1
