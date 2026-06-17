@@ -1,21 +1,8 @@
 #Routern eine Router-ID zuweisen
--------------------
+--------------------------------
 Router HH:
 conf t
 ipv6 router ospf 42
 router-id 1.1.1.1
--------------------
-Router HL:
-conf t
-ipv6 router ospf 42
-router-id 2.2.2.2
--------------------
-Router B:
-conf t
-ipv6 router ospf 42
-router-id 3.3.3.3
--------------------
-Router M:
-conf t
-ipv6 router ospf 42
-router-id 4.4.4.4
+
+
