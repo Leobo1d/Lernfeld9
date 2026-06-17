@@ -1,8 +1,16 @@
-#Routern eine Router-ID zuweisen
---------------------------------
+#Router-ID zuweisen
+-------------------
 Router HH:
+enable
 conf t
 ipv6 router ospf 42
 router-id 1.1.1.1
+--------------------------------
+#OSPFv3 pro Interface aktivieren
+--------------------------------
+enable
+conf t
+interface se0/1/0
+ipv6 ospf 42 area 0
 
 
