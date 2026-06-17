@@ -19,3 +19,6 @@ ipv6 ospf 42 area 0
 
 interface GigabitEthernet0/0/0.30
 ipv6 ospf 42 area 0
+
+interface GigabitEthernet0/0/0.40
+ipv6 ospf 42 area 0
