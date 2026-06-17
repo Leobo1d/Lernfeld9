@@ -1,7 +1,7 @@
 enable
 configure terminal
-hostname Router
-ip domain-name firma.local
+hostname RT-HH-01
+ip domain-name lernfeld.local
 
 enable secret enable123
 username admin privilege 15 secret admin123
