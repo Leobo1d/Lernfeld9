@@ -17,7 +17,7 @@ line console 0
 exit
 
 interface vlan 10
- ipv6 address 2001:DB8:1:10::2/64
+ ipv6 address 2001:DB8:4:60::2/64
  no shutdown
 exit
 
