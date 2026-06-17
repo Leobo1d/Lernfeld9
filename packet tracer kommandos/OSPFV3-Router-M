@@ -4,3 +4,19 @@ Router M:
 conf t
 ipv6 router ospf 42
 router-id 4.4.4.4
+---------------------
+#OSPFV3 pro Interface
+---------------------
+enable
+conf t
+interface se0/1/0
+ipv6 ospf 42 area 0
+
+interface se0/1/1
+ipv6 ospf 42 area 0
+
+interface se0/2/0
+ipv6 ospf 42 area 0
+
+interface Gi0/0/0.60
+ipv6 ospf 42 area 0
