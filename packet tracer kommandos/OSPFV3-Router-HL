@@ -1,0 +1,5 @@
+#Router-ID zuweisen
+Router HL:
+conf t
+ipv6 router ospf 42
+router-id 2.2.2.2
